@@ -16,7 +16,7 @@ header {
 .banner {
     position: relative;
     height: 100vh;
-    background: url('"https://drive.google.com/file/d/1eBICPpEIRld3BB36MwE0NJ5oAxHgja5d/view?usp=drive_link"') no-repeat center center/cover;
+    background: url('https://drive.google.com/uc?export=view&id=1eBICPpEIRld3BB36MwE0NJ5oAxHgja5d') no-repeat center center/cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +27,7 @@ header {
 }
 
 .banner:hover {
-    background: url('https://drive.google.com/file/d/1eBICPpEIRld3BB36MwE0NJ5oAxHgja5d/view?usp=drive_link') no-repeat center center/cover;
+    background: url('https://drive.google.com/uc?export=view&id=1eBICPpEIRld3BB36MwE0NJ5oAxHgja5d') no-repeat center center/cover;
     transform: scale(1.05); /* Slight zoom on hover */
 }
 

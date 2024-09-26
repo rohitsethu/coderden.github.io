@@ -1,1 +1,63 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(30, 30, 30, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Banner Section */
+.banner {
+    position: relative;
+    height: 100vh;
+    background: url('https://your-banner-url-here.jpg') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.banner:hover {
+    background: url('https://your-hover-banner-url-here.jpg') no-repeat center center/cover;
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.banner h1 {
+    font-size: 3rem;
+    text-shadow: 0 4px 10px rgba(0, 255, 204, 0.8);
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: #00ffcc;
+    margin-top: 15px;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+.navbar a {
+    color: #00ffcc;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);
+}
 

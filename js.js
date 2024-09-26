@@ -1,21 +1,11 @@
-.nav-active {
-right: 0;
-}
-// Selection of HTML objects
-const burger = document.querySelector('.burger i');
-const nav = document.querySelector('.nav');
-// Defining a function
-function toggleNav() {
-burger.classList.toggle('fa-bars');
-burger.classList.toggle('fa-times');
-nav.classList.toggle('nav-active');
-}
-// Calling the function after click event occurs
-burger.addEventListener('click', function() {
-toggleNav();
+// Optional: Adding interactivity such as smooth scrolling
+const links = document.querySelectorAll('.navbar a');
+
+links.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default anchor click behavior
+        const targetId = this.getAttribute('href'); // Get the target section
+        const targetSection = document.querySelector(targetId); // Select the target section
+        targetSection.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to the section
+    });
 });
-.nav {
-...
-transition: all 400ms;
-...
-} 

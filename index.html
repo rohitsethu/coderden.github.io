@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="css.css"> <!-- Linking to CSS -->
 </head>
 <body>
-    <!-- Simplified Header Section -->
-    <section class="banner" id="home" style="background-color: #1c1c1c; text-align: center; padding: 50px 0;">
-        <h1 style="color: #00ffff;">Welcome to CoderDen</h1>
-        <p style="color: #ffffff;">Explore my coding journey and projects</p>
-        </section>
-    <section>
-    <!-- Add a scroll button after the header text -->
-<div class="scroll-button">
-    <a href="#main-content">Scroll Down</a>
-</div>
-</section>
-
     <!-- Navigation Bar -->
     <header>
         <nav>
@@ -32,15 +20,22 @@
         </nav>
     </header>
 
-    <!-- Custom Section -->
-    <section>
+    <!-- Header Section -->
+    <section class="banner" id="home" style="background-color: #1c1c1c; text-align: center; padding: 50px 0;">
+        <h1 style="color: #00ffff;">Welcome to CoderDen</h1>
+        <p style="color: #ffffff;">Explore my coding journey and projects</p>
+        <div class="scroll-button">
+            <button onclick="scrollToSection('main-content')" class="scroll-btn">Scroll Down</button>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section id="main-content">
         <h1>𝑪𝒐𝒅𝒆𝒓 𝑫𝒆𝒏</h1>
-        
         <h3>𝑴𝒚 𝑳𝒊𝒇𝒆</h3>
         <button onclick="window.location.href='https://drive.google.com/file/d/1r4zfjtIcu_4oxHkLrAi2XiE8-pOUKi6U/view?usp=drivesdk';" style="font-size: 18px; padding: 10px 20px; color: #fff; background-color: #7289da; border: none; border-radius: 5px; cursor: pointer;">
-    𝕮𝖑𝖎𝖈𝖐 𝖍𝖊𝖗𝖊 𝖋𝖔𝖗 𝖆 𝖙𝖔𝖚𝖗
-</button>
-
+            𝕮𝖑𝖎𝖈𝖐 𝖍𝖊𝖗𝖊 𝖋𝖔𝖗 𝖆 𝖙𝖔𝖚𝖗
+        </button>
     </section>
 
     <!-- Section IDs for the links -->
@@ -56,34 +51,43 @@
 
     <section id="skills">
         <h2>𝑺𝒌𝒊𝒍𝒍𝒔 :</h2>
-        <p>𝑮𝒂𝒎𝒊𝒏𝒈 𝒂𝒏𝒅 𝑪𝒐𝒅𝒊𝒏𝒈 <br></br> 𝑷𝒂𝒓𝒕 𝒕𝒊𝒎𝒆 𝒊𝒏𝒇𝒍𝒖𝒆𝒏𝒄𝒆𝒓 <br></br>
-𝑳𝒂𝒏𝒈𝒖𝒂𝒈𝒆𝒔 : 𝑨𝒓𝒂𝒃𝒊𝒄, 𝑭𝒓𝒆𝒏𝒄𝒉, 𝑬𝒏𝒈𝒍𝒊𝒔𝒉 <br></br>
+        <p>𝑮𝒂𝒎𝒊𝒏𝒈 𝒂𝒏𝒅 𝑪𝒐𝒅𝒊𝒏𝒈 <br> 
+        𝑷𝒂𝒓𝒕 𝒕𝒊𝒎𝒆 𝒊𝒏𝒇𝒍𝒖𝒆𝒏𝒄𝒆𝒓 <br>
+        𝑳𝒂𝒏𝒈𝒖𝒂𝒈𝒆𝒔 : 𝑨𝒓𝒂𝒃𝒊𝒄, 𝑭𝒓𝒆𝒏𝒄𝒉, 𝑬𝒏𝒈𝒍𝒊𝒔𝒉 <br>
         𝑪𝒐𝒅𝒊𝒏𝒈 𝑳𝒂𝒏𝒈𝒖𝒂𝒈𝒆𝒔 : 𝑯𝑻𝑴𝑳, 𝑱𝒂𝒗𝒂𝒔𝒄𝒓𝒊𝒑𝒕, 𝑷𝒚𝒕𝒉𝒐𝒏</p>
     </section>
 
     <section id="achievements">
         <h2>𝑨𝒄𝒉𝒊𝒆𝒗𝒆𝒎𝒆𝒏𝒕𝒔 :</h2>
         <p>
-𝑻𝒆𝒄𝒉 𝑭𝒆𝒔𝒕 𝑹𝒖𝒏𝒏𝒆𝒓 𝒖𝒑 𝟐𝟎𝟐𝟑 <br></br>
-𝑵𝒐𝒎𝒊𝒏𝒆𝒆 𝒐𝒇 𝑻𝒆𝒄𝒉 𝑭𝒆𝒔𝒕 𝟐𝟎𝟐𝟒 <br></br>
-𝑽𝒂𝒓𝒊𝒐𝒖𝒔 𝒓𝒆𝒈𝒊𝒐𝒏𝒂𝒍 𝒆𝒗𝒆𝒏𝒕𝒔 <br></br>
-𝑵𝒐𝒎𝒊𝒏𝒆𝒆 𝒇𝒐𝒓 𝑮𝒆𝒏𝒊𝒖𝒔 𝑯𝒐𝒖𝒓</p>
+            𝑻𝒆𝒄𝒉 𝑭𝒆𝒔𝒕 𝑹𝒖𝒏𝒏𝒆𝒓 𝒖𝒑 𝟐𝟎𝟐𝟑 <br>
+            𝑵𝒐𝒎𝒊𝒏𝒆𝒆 𝒐𝒇 𝑻𝒆𝒄𝒉 𝑭𝒆𝒔𝒕 𝟐𝟎𝟐𝟒 <br>
+            𝑽𝒂𝒓𝒊𝒐𝒖𝒔 𝒓𝒆𝒈𝒊𝒐𝒏𝒂𝒍 𝒆𝒗𝒆𝒏𝒕𝒔 <br>
+            𝑵𝒐𝒎𝒊𝒏𝒆𝒆 𝒇𝒐𝒓 𝑮𝒆𝒏𝒊𝒖𝒔 𝑯𝒐𝒖𝒓
+        </p>
     </section>
 
     <section id="contact">
         <h2>𝑪𝒐𝒏𝒕𝒂𝒄𝒕𝒔 :</h2>
-     
-<!-- Discord Button -->
-    <button onclick="window.location.href='https://discordapp.com/users/1071443071285350411';" style="font-size: 18px; padding: 10px 20px; color: #fff; background-color: #7289da; border: none; border-radius: 5px; cursor: pointer;">
-        𝕯𝖎𝖘𝖈𝖔𝖗𝖉 : @𝖉𝖗𝖆𝖌𝖔𝖓𝖘_𝖔𝖋_𝖎𝖈𝖊
-    </button>
+        <!-- Discord Button -->
+        <button onclick="window.location.href='https://discordapp.com/users/1071443071285350411';" style="font-size: 18px; padding: 10px 20px; color: #fff; background-color: #7289da; border: none; border-radius: 5px; cursor: pointer;">
+            𝕯𝖎𝖘𝖈𝖔𝖗𝖉 : @𝖉𝖗𝖆𝖌𝖔𝖓𝖘_𝖔𝖋_𝖎𝖈𝖊
+        </button>
 
-    <!-- Twitter Button -->
-    <button onclick="window.location.href='https://twitter.com/RahulLFC';" style="font-size: 18px; padding: 10px 20px; color: #fff; background-color: #1da1f2; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
-        𝕿𝖜𝖎𝖙𝖙𝖊𝖗 : @𝕽𝖆𝖍𝖚𝖑𝕷𝕱𝕮
-    </button>
+        <!-- Twitter Button -->
+        <button onclick="window.location.href='https://twitter.com/RahulLFC';" style="font-size: 18px; padding: 10px 20px; color: #fff; background-color: #1da1f2; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+            𝕿𝖜𝖎𝖙𝖙𝖊𝖗 : @𝕽𝖆𝖍𝖚𝖑𝕷𝕱𝕮
+        </button>
     </section>
 
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
     <script src="js.js"></script> <!-- Linking to JavaScript -->
 </body>
 </html>

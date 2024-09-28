@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -5,14 +6,7 @@ body {
     color: white;
 }
 
-header {
-    position: sticky;
-    top: 0;
-    background-color: rgba(30, 30, 30, 0.8);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Banner Section */
+/* Banner Section as the Header */
 .banner {
     position: relative;
     height: 100vh;
@@ -23,12 +17,6 @@ header {
     align-items: center;
     color: #ffffff;
     text-align: center;
-    transition: all 0.3s ease;
-}
-
-.banner:hover {
-    background: url('https://drive.google.com/uc?export=view&id=1eBICPpEIRld3BB36MwE0NJ5oAxHgja5d') no-repeat center center/cover;
-    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .banner h1 {
@@ -42,11 +30,25 @@ header {
     margin-top: 15px;
 }
 
+/* Navigation Bar */
+header {
+    background-color: rgba(30, 30, 30, 0.8);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
 .navbar {
     list-style-type: none;
     display: flex;
-    justify-content: space-around;
-    padding: 15px;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 20px;
 }
 
 .navbar a {
@@ -60,4 +62,19 @@ header {
     color: #ffcc00;
     transform: scale(1.1);
 }
+
+/* Section Styles (for links) */
+section {
+    padding: 50px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
 

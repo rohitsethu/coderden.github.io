@@ -5,19 +5,18 @@ body {
     background-color: black;
     color: white;
 }
-
-/* Banner Section as the Header */
 .banner {
-    position: relative;
-    height: 100vh;
-    background: url('C:\Users\Sethu\Downloads\neutral-watercolor-background_23-2150564038.avif') no-repeat center center/cover;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #ffffff;
-    text-align: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white; /* Adjust text color for readability */
 }
+
 
 .banner h1 {
     font-size: 3rem;

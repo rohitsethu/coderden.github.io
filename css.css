@@ -117,3 +117,47 @@ p {
     margin-top: 100vh;
     text-align: center;
 }
+/* General button styles */
+.btn {
+    font-size: 16px; /* Font size */
+    padding: 10px 20px; /* Padding: top/bottom, left/right */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-decoration: none; /* Remove underline from anchor */
+    display: inline-block; /* Aligns the button */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    margin: 10px; /* Margin between buttons */
+}
+
+/* Discord button specific styles */
+.btn.discord {
+    background-color: #7289da; /* Discord color */
+}
+
+/* Twitter button specific styles */
+.btn.twitter {
+    background-color: #1da1f2; /* Twitter color */
+}
+
+/* Hover effects */
+.btn:hover {
+    transform: scale(1.05); /* Slightly increase size */
+}
+
+/* Discord hover effect */
+.btn.discord:hover {
+    background-color: #5a6e9e; /* Darker Discord color on hover */
+}
+
+/* Twitter hover effect */
+.btn.twitter:hover {
+    background-color: #0e76a8; /* Darker Twitter color on hover */
+}
+
+/* Focus styles */
+.btn:focus {
+    outline: 2px solid #00ffcc; /* Outline for focus visibility */
+    outline-offset: 2px; /* Space between outline and button */
+}

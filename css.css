@@ -40,14 +40,15 @@ header {
 
 .navbar {
     list-style-type: none;
-    display: flex;
-    justify-content: center;
+    display: flex; /* Keep items in a row */
+    justify-content: center; /* Center the items */
     margin: 0;
     padding: 0;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .navbar li {
-    margin: 0 20px;
+    margin: 0 20px; /* Space between items */
 }
 
 .navbar a {

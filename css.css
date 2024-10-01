@@ -1,163 +1,424 @@
-/* General Styles */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: black;
-    color: white;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-.banner {
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    color: white; /* Adjust text color for readability */
-}
+        h1 {
+            margin-bottom: 20px;
+            color: #00e676;
+        }
 
-.banner h1 {
-    font-size: 3rem;
-    text-shadow: 0 4px 10px rgba(0, 255, 204, 0.8);
-}
+        #status {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ccc;
+        }
 
-.banner p {
-    font-size: 1.2rem;
-    color: #00ffcc;
-    margin-top: 15px;
-}
+        #start-button {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #00e676;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-/* Navigation Bar */
-header {
-    background-color: rgba(30, 30, 30, 0.8);
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
+        #start-button:hover {
+            background-color: #00b248;
+        }
 
-.navbar {
-    list-style-type: none;
-    display: flex; /* Keep items in a row */
-    justify-content: center; /* Center the items */
-    margin: 0;
-    padding: 0;
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-}
+        .language-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #fff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
 
-.navbar li {
-    margin: 0 20px; /* Space between items */
-}
+        .sound-wave {
+            display: none;
+            margin-top: 20px;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+        }
 
-.navbar a {
-    color: #00ffcc;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
+        .bar {
+            width: 10px;
+            height: 20px;
+            background-color: #00e676;
+            animation: wave 1s infinite ease-in-out;
+        }
 
-.navbar a:hover {
-    color: #ffcc00;
-    transform: scale(1.1);
-}
+        .bar:nth-child(2) {
+            animation-delay: 0.2s;
+        }
 
-/* Section Styles */
-section {
-    padding: 50px;
-}
+        .bar:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+        @keyframes wave {
+            0%, 100% {
+                height: 20px;
+            }
+            50% {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-p {
-    font-size: 1.2rem;
-}
+    <h1>AI Voice Assistant</h1>
+    <div>
+        <button class="language-button" id="english-button">English</button>
+        <button class="language-button" id="hindi-button">हिन्दी</button>
+        <button class="language-button" id="tamil-button">தமிழ்</button>
+    </div>
+    <button id="start-button">Start Listening</button>
+    <div class="sound-wave" id="sound-wave">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <p id="status"></p>
 
-/* Scroll Button Styles */
-.scroll-btn {
-    font-family: 'UnifrakturMaguntia', cursive; /* Gothic style font */
-    font-size: 2rem;
-    background-color: #00ffcc;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite; /* Adds bounce effect */
-    transition: background-color 0.3s ease;
-}
+    <script>
+        // Check for browser support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        const status = document.getElementById('status');
+        const soundWave = document.getElementById('sound-wave');
+        let currentLanguage = 'english'; // Default language
 
-.scroll-btn:hover {
-    background-color: #ffcc00;
-}
+        // Data object containing commands and responses in multiple languages
+        const commandData = {
+            "english": {
+                "hello": "Hello! How can I assist you today?",
+                "what is your name": "I am your AI voice assistant.",
+                "how are you": "I am just a program, but I'm here to help you!",
+                "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
+                "what are consumer rights": `Consumer rights are legal entitlements that protect buyers of goods and services. The main consumer rights include the right to safety, the right to be informed, the right to choose, the right to be heard, the right to redress, and the right to privacy.`,
+                "how are consumers protected": `Consumer protection involves laws and regulations designed to ensure fair trade, competition, and accurate information in the marketplace. Key aspects include legislation, regulatory agencies, consumer education, complaint resolution, and quality standards.`,
+                "strategies for consumer protection": `To enhance consumer protection, various strategies can be implemented, such as awareness campaigns, strengthening legislation, monitoring and enforcement, supporting consumer advocacy groups, establishing feedback mechanisms, collaboration with businesses, digital protection, financial literacy programs, and alternative dispute resolution methods.`
+            },
+            "hindi": {
+                "hello": "नमस्ते! मैं आपकी कैसे मदद कर सकता हूँ?",
+                "what is your name": "मैं आपका एआई वॉयस असिस्टेंट हूँ।",
+                "how are you": "मैं बस एक प्रोग्राम हूँ, लेकिन मैं आपकी मदद करने के लिए यहाँ हूँ!",
+                "tell me a joke": "वैज्ञानिकों को परमाणुओं पर भरोसा क्यों नहीं होता? क्योंकि वे सब कुछ बना देते हैं!",
+                "what are consumer rights": `उपभोक्ता अधिकार ऐसे कानूनी अधिकार हैं जो सामान और सेवाओं के खरीदारों की रक्षा करते हैं। मुख्य उपभोक्ता अधिकारों में सुरक्षा का अधिकार, जानकारी का अधिकार, चुनाव का अधिकार, सुने जाने का अधिकार, मुआवजे का अधिकार और गोपनीयता का अधिकार शामिल हैं।`,
+                "how are consumers protected": `उपभोक्ता संरक्षण में कानून और नियम शामिल होते हैं जो उचित व्यापार, प्रतिस्पर्धा और बाजार में सटीक जानकारी सुनिश्चित करते हैं। मुख्य पहलुओं में विधायी उपाय, नियामक एजेंसियाँ, उपभोक्ता शिक्षा, शिकायत समाधान, और गुणवत्ता मानक शामिल हैं।`,
+                "strategies for consumer protection": `उपभोक्ता संरक्षण को बढ़ाने के लिए कई रणनीतियाँ लागू की जा सकती हैं, जैसे जागरूकता अभियान, विधायी सशक्तिकरण, निगरानी और प्रवर्तन, उपभोक्ता प्रचार समूहों का समर्थन, फीडबैक तंत्र की स्थापना, व्यवसायों के साथ सहयोग, डिजिटल सुरक्षा, वित्तीय साक्षरता कार्यक्रम, और वैकल्पिक विवाद समाधान विधियाँ।`
+            },
+            "tamil": {
+                "hello": "வணக்கம்! நான் உங்களுக்கு எவ்வாறு உதவலாம்?",
+                "what is your name": "நான் உங்கள் AI வாய்ஸ் உதவியாளர்.",
+                "how are you": "நான் ஒரு நிரல்தான், ஆனால் நான் உங்களுக்கு உதவுவதற்காக இங்கே இருக்கிறேன்!",
+                "tell me a joke": "அணுக்களுக்குப் பொறுப்பாக அல்ல, அனைத்து விஷயங்களும் உருவாக்குவதாக இதைப் பாருங்கள்!",
+                "what are consumer rights": `நுகர்வோர் உரிமைகள் என்பது பொருட்கள் மற்றும் சேவைகளை வாங்குபவர்களைப் பாதுகாப்பதற்கான சட்ட உரிமைகள் ஆகும். நுகர்வோர் உரிமைகளில் பாதுகாப்புக்கான உரிமை, தகவல் பெறுவதற்கான உரிமை, தேர்வு செய்யும் உரிமை, கேட்கப்படும் உரிமை, திரும்பப்பெறும் உரிமை மற்றும் தனியுரிமை உள்ளன.`,
+                "how are consumers protected": `நுகர்வோர் பாதுகாப்பு என்பது சரியான வர்த்தகம், போட்டி மற்றும் சந்தையில் தெளிவான தகவல்களை உறுதி செய்வதற்கான சட்டங்கள் மற்றும் ஒழுங்கு ஆகியவற்றைக் குறிக்கிறது. முக்கிய அம்சங்களில் சட்டங்கள், ஒழுங்குமுறை நிறுவணங்கள், நுகர்வோர் கல்வி, முறையீட்டு தீர்வு மற்றும் தரக் கெளரவம் அடங்கும்.`,
+                "strategies for consumer protection": `நுகர்வோர் பாதுகாப்பை மேம்படுத்த பல வழிமுறைகள் நடைமுறைப்படுத்தப்படலாம், எடுத்துக்காட்டாக, விழிப்புணர்வு படிவங்கள், சட்டங்களை வலுப்படுத்துவது, கண்காணிப்பு மற்றும் நடைமுறை, நுகர்வோர் ஆவணக்குழுக்களை ஆதரித்தல், கருத்துக்கள் திரட்டும் அமைப்புகளை நிறுவுதல், தொழில்முனைவர்கள் உடன் ஒத்துழைப்பது, டிஜிட்டல் பாதுகாப்பு, நிதி கல்வி திட்டங்கள் மற்றும் மாற்று முறைமைகள்.`
+            }
+        };
 
-/* Bounce animation */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
-}
+        // Function to speak a text in the current language
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
 
-/* Extra margin for main content to not overlap with the banner */
-#main-content {
-    margin-top: 100vh;
-    text-align: center;
-}
-/* General button styles */
-.btn {
-    font-size: 16px; /* Font size */
-    padding: 10px 20px; /* Padding: top/bottom, left/right */
-    color: white; /* Text color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    text-decoration: none; /* Remove underline from anchor */
-    display: inline-block; /* Aligns the button */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-    margin: 10px; /* Margin between buttons */
-}
+        // Function to start voice recognition
+        document.getElementById('start-button').onclick = function() {
+            // Speak "How may I help you?" after clicking the button
+            speak(commandData[currentLanguage]["hello"]);
+            
+            // Start listening for commands
+            recognition.start();
+            status.textContent = "Listening...";
+            soundWave.style.display = "flex";  // Show sound wave
+        };
 
-/* Discord button specific styles */
-.btn.discord {
-    background-color: #7289da; /* Discord color */
-}
+        // Handle the results
+        recognition.onresult = function(event) {
+            const speechResult = event.results[0][0].transcript.toLowerCase().trim();
+            const response = commandData[currentLanguage][speechResult];
 
-/* Twitter button specific styles */
-.btn.twitter {
-    background-color: #1da1f2; /* Twitter color */
-}
+            if (response) {
+                status.textContent = `You said: "${speechResult}"`;
+                speak(response); // Speak the response
+            } else {
+                status.textContent = "Sorry, I didn't understand that.";
+                speak("Sorry, I didn't understand that."); // Default response
+            }
 
-/* Hover effects */
-.btn:hover {
-    transform: scale(1.05); /* Slightly increase size */
-}
+            soundWave.style.display = "none";  // Hide sound wave after speaking
+        };
 
-/* Discord hover effect */
-.btn.discord:hover {
-    background-color: #5a6e9e; /* Darker Discord color on hover */
-}
+        // Handle end of speech recognition
+        recognition.onend = function() {
+            status.textContent = "Stopped listening.";
+            soundWave.style.display = "none";  // Hide sound wave when stopped
+        };
 
-/* Twitter hover effect */
-.btn.twitter:hover {
-    background-color: #0e76a8; /* Darker Twitter color on hover */
-}
+        // Handle errors
+        recognition.onerror = function(event) {
+            status.textContent = `Error occurred: ${event.error}`;
+            soundWave.style.display = "none";  // Hide sound wave on error
+        };
 
-/* Focus styles */
-.btn:focus {
-    outline: 2px solid #00ffcc; /* Outline for focus visibility */
-    outline-offset: 2px; /* Space between outline and button */
-}
+        // Language selection functionality
+        document.getElementById('english-button').onclick = function() {
+            currentLanguage = 'english';
+            status.textContent = "Language set to English.";
+            speak("Language set to English.");
+        };
+
+        document.getElementById('hindi-button').onclick = function() {
+            currentLanguage = 'hindi';
+            status.textContent = "भाषा हिंदी में सेट की गई।";
+            speak("भाषा हिंदी में सेट की गई।");
+        };
+
+        document.getElementById('tamil-button').onclick = function() {
+            currentLanguage = 'tamil';
+            status.textContent = "மொழி தமிழ் ஆக அமைக்கப்பட்டுள்ளது.";
+            speak("மொழி தமிழ் ஆக அமைக்கப்பட்டுள்ளது.");
+        };
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #00e676;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ccc;
+        }
+
+        #start-button {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #00e676;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #start-button:hover {
+            background-color: #00b248;
+        }
+
+        .language-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #fff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .sound-wave {
+            display: none;
+            margin-top: 20px;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bar {
+            width: 10px;
+            height: 20px;
+            background-color: #00e676;
+            animation: wave 1s infinite ease-in-out;
+        }
+
+        .bar:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .bar:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                height: 20px;
+            }
+            50% {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AI Voice Assistant</h1>
+    <div>
+        <button class="language-button" id="english-button">English</button>
+        <button class="language-button" id="hindi-button">हिन्दी</button>
+        <button class="language-button" id="tamil-button">தமிழ்</button>
+    </div>
+    <button id="start-button">Start Listening</button>
+    <div class="sound-wave" id="sound-wave">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <p id="status"></p>
+
+    <script>
+        // Check for browser support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        const status = document.getElementById('status');
+        const soundWave = document.getElementById('sound-wave');
+        let currentLanguage = 'english'; // Default language
+
+        // Data object containing commands and responses in multiple languages
+        const commandData = {
+            "english": {
+                "hello": "Hello! How can I assist you today?",
+                "what is your name": "I am your AI voice assistant.",
+                "how are you": "I am just a program, but I'm here to help you!",
+                "tell me a joke": "Why don't scientists trust atoms? Because they make up everything!",
+                "what are consumer rights": `Consumer rights are legal entitlements that protect buyers of goods and services. The main consumer rights include the right to safety, the right to be informed, the right to choose, the right to be heard, the right to redress, and the right to privacy.`,
+                "how are consumers protected": `Consumer protection involves laws and regulations designed to ensure fair trade, competition, and accurate information in the marketplace. Key aspects include legislation, regulatory agencies, consumer education, complaint resolution, and quality standards.`,
+                "strategies for consumer protection": `To enhance consumer protection, various strategies can be implemented, such as awareness campaigns, strengthening legislation, monitoring and enforcement, supporting consumer advocacy groups, establishing feedback mechanisms, collaboration with businesses, digital protection, financial literacy programs, and alternative dispute resolution methods.`
+            },
+            "hindi": {
+                "hello": "नमस्ते! मैं आपकी कैसे मदद कर सकता हूँ?",
+                "what is your name": "मैं आपका एआई वॉयस असिस्टेंट हूँ।",
+                "how are you": "मैं बस एक प्रोग्राम हूँ, लेकिन मैं आपकी मदद करने के लिए यहाँ हूँ!",
+                "tell me a joke": "वैज्ञानिकों को परमाणुओं पर भरोसा क्यों नहीं होता? क्योंकि वे सब कुछ बना देते हैं!",
+                "what are consumer rights": `उपभोक्ता अधिकार ऐसे कानूनी अधिकार हैं जो सामान और सेवाओं के खरीदारों की रक्षा करते हैं। मुख्य उपभोक्ता अधिकारों में सुरक्षा का अधिकार, जानकारी का अधिकार, चुनाव का अधिकार, सुने जाने का अधिकार, मुआवजे का अधिकार और गोपनीयता का अधिकार शामिल हैं।`,
+                "how are consumers protected": `उपभोक्ता संरक्षण में कानून और नियम शामिल होते हैं जो उचित व्यापार, प्रतिस्पर्धा और बाजार में सटीक जानकारी सुनिश्चित करते हैं। मुख्य पहलुओं में विधायी उपाय, नियामक एजेंसियाँ, उपभोक्ता शिक्षा, शिकायत समाधान, और गुणवत्ता मानक शामिल हैं।`,
+                "strategies for consumer protection": `उपभोक्ता संरक्षण को बढ़ाने के लिए कई रणनीतियाँ लागू की जा सकती हैं, जैसे जागरूकता अभियान, विधायी सशक्तिकरण, निगरानी और प्रवर्तन, उपभोक्ता प्रचार समूहों का समर्थन, फीडबैक तंत्र की स्थापना, व्यवसायों के साथ सहयोग, डिजिटल सुरक्षा, वित्तीय साक्षरता कार्यक्रम, और वैकल्पिक विवाद समाधान विधियाँ।`
+            },
+            "tamil": {
+                "hello": "வணக்கம்! நான் உங்களுக்கு எவ்வாறு உதவலாம்?",
+                "what is your name": "நான் உங்கள் AI வாய்ஸ் உதவியாளர்.",
+                "how are you": "நான் ஒரு நிரல்தான், ஆனால் நான் உங்களுக்கு உதவுவதற்காக இங்கே இருக்கிறேன்!",
+                "tell me a joke": "அணுக்களுக்குப் பொறுப்பாக அல்ல, அனைத்து விஷயங்களும் உருவாக்குவதாக இதைப் பாருங்கள்!",
+                "what are consumer rights": `நுகர்வோர் உரிமைகள் என்பது பொருட்கள் மற்றும் சேவைகளை வாங்குபவர்களைப் பாதுகாப்பதற்கான சட்ட உரிமைகள் ஆகும். நுகர்வோர் உரிமைகளில் பாதுகாப்புக்கான உரிமை, தகவல் பெறுவதற்கான உரிமை, தேர்வு செய்யும் உரிமை, கேட்கப்படும் உரிமை, திரும்பப்பெறும் உரிமை மற்றும் தனியுரிமை உள்ளன.`,
+                "how are consumers protected": `நுகர்வோர் பாதுகாப்பு என்பது சரியான வர்த்தகம், போட்டி மற்றும் சந்தையில் தெளிவான தகவல்களை உறுதி செய்வதற்கான சட்டங்கள் மற்றும் ஒழுங்கு ஆகியவற்றைக் குறிக்கிறது. முக்கிய அம்சங்களில் சட்டங்கள், ஒழுங்குமுறை நிறுவணங்கள், நுகர்வோர் கல்வி, முறையீட்டு தீர்வு மற்றும் தரக் கெளரவம் அடங்கும்.`,
+                "strategies for consumer protection": `நுகர்வோர் பாதுகாப்பை மேம்படுத்த பல வழிமுறைகள் நடைமுறைப்படுத்தப்படலாம், எடுத்துக்காட்டாக, விழிப்புணர்வு படிவங்கள், சட்டங்களை வலுப்படுத்துவது, கண்காணிப்பு மற்றும் நடைமுறை, நுகர்வோர் ஆவணக்குழுக்களை ஆதரித்தல், கருத்துக்கள் திரட்டும் அமைப்புகளை நிறுவுதல், தொழில்முனைவர்கள் உடன் ஒத்துழைப்பது, டிஜிட்டல் பாதுகாப்பு, நிதி கல்வி திட்டங்கள் மற்றும் மாற்று முறைமைகள்.`
+            }
+        };
+
+        // Function to speak a text in the current language
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Function to start voice recognition
+        document.getElementById('start-button').onclick = function() {
+            // Speak "How may I help you?" after clicking the button
+            speak(commandData[currentLanguage]["hello"]);
+            
+            // Start listening for commands
+            recognition.start();
+            status.textContent = "Listening...";
+            soundWave.style.display = "flex";  // Show sound wave
+        };
+
+        // Handle the results
+        recognition.onresult = function(event) {
+            const speechResult = event.results[0][0].transcript.toLowerCase().trim();
+            const response = commandData[currentLanguage][speechResult];
+
+            if (response) {
+                status.textContent = `You said: "${speechResult}"`;
+                speak(response); // Speak the response
+            } else {
+                status.textContent = "Sorry, I didn't understand that.";
+                speak("Sorry, I didn't understand that."); // Default response
+            }
+
+            soundWave.style.display = "none";  // Hide sound wave after speaking
+        };
+
+        // Handle end of speech recognition
+        recognition.onend = function() {
+            status.textContent = "Stopped listening.";
+            soundWave.style.display = "none";  // Hide sound wave when stopped
+        };
+
+        // Handle errors
+        recognition.onerror = function(event) {
+            status.textContent = `Error occurred: ${event.error}`;
+            soundWave.style.display = "none";  // Hide sound wave on error
+        };
+
+        // Language selection functionality
+        document.getElementById('english-button').onclick = function() {
+            currentLanguage = 'english';
+            status.textContent = "Language set to English.";
+            speak("Language set to English.");
+        };
+
+        document.getElementById('hindi-button').onclick = function() {
+            currentLanguage = 'hindi';
+            status.textContent = "भाषा हिंदी में सेट की गई।";
+            speak("भाषा हिंदी में सेट की गई।");
+        };
+
+        document.getElementById('tamil-button').onclick = function() {
+            currentLanguage = 'tamil';
+            status.textContent = "மொழி தமிழ் ஆக அமைக்கப்பட்டுள்ளது.";
+            speak("மொழி தமிழ் ஆக அமைக்கப்பட்டுள்ளது.");
+        };
+    </script>
+
+</body>
+</html>

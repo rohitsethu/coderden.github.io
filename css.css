@@ -1,1 +1,40 @@
+/* Styles for the banner */
+.banner {
+    background-color: #1c1c1c; /* Fallback background color */
+    background-size: cover; /* Ensure the background covers the entire section */
+    background-position: center; /* Center the background image */
+    text-align: center;
+    padding: 50px 0;
+}
+
+/* Styles for the main heading */
+.banner h1 {
+    color: #00ffff; /* Bright cyan for the heading */
+    font-size: 3rem; /* Adjust the font size */
+    margin: 0; /* Remove default margin */
+}
+
+/* Styles for the sub-heading (paragraph below the title) */
+.banner p {
+    color: #ffffff; /* White color for the text */
+    font-size: 1.2rem; /* Adjust the font size */
+    margin-top: 15px; /* Adds space between the title and this text */
+}
+
+/* Scroll button styles */
+.scroll-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #7289da;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Space above the button */
+}
+
+/* Hover effect for the scroll button */
+.scroll-btn:hover {
+    background-color: #5964b0;
+}
 

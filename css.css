@@ -38,7 +38,7 @@ nav ul li a:hover {
 /* Banner section */
 #banner {
     height: 100vh;
-    background-image: url('https://drive.google.com/file/d/1uYqG9tHlP4gj0ciNy_doaYJa6HGfU0XY/view?usp=drivesdk');
+    background-image: url('https://raw.githubusercontent.com/rohitsethu/Coderden/main/4k-mountain-l3f04sogeaabr5h0.jpg'); /* Updated link */
     background-size: cover;
     background-position: center;
     position: relative;
@@ -96,7 +96,7 @@ ul li {
     background-color: transparent;
     cursor: pointer;
     font-size: 1rem;
-    margin-right: 1rem;
+    margin-right:  1rem;
 }
 
 .btn-discord:hover, .btn-twitter:hover {
